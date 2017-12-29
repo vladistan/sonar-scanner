@@ -7,6 +7,10 @@ ADD "https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanne
 
 RUN unzip "sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip" \
 	&& rm /sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip \
+    && apk update && apk add python py-pip \
+    && pip install pylint \
+    && rm -rf var/cache/apk \
+    && rm -rf /root/.cache/ \
 	&& mkdir -p /app
 
 ENV PATH "/sonar-scanner-${SONAR_SCANNER_VERSION}/bin:${PATH}"
